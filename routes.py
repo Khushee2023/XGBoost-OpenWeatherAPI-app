@@ -8,6 +8,8 @@ import matplotlib.pyplot as plt
 import io
 import base64
 from model import model, FEATURES, predict_energy_demand
+import matplotlib
+matplotlib.use('Agg')
 
 # Replace with your actual OpenWeather API key
 OPENWEATHER_API_KEY = "f8eecee3f82a3ee3e9f0e4123b8c7bd7"
