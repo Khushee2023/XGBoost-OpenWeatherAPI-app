@@ -11,8 +11,7 @@ from model import model, FEATURES, predict_energy_demand
 import matplotlib
 matplotlib.use('Agg')
 
-# Replace with your actual OpenWeather API key
-OPENWEATHER_API_KEY = "f8eecee3f82a3ee3e9f0e4123b8c7bd7"
+OPENWEATHER_API_KEY = "12345677"
 
 bp = Blueprint('main', __name__)
 
@@ -21,7 +20,7 @@ def index():
     return render_template('index.html')
 
 def get_coordinates(location):
-    """Fetch coordinates (lat, lon) for a given location using OpenWeather's current weather API."""
+   
     url = "https://api.openweathermap.org/data/2.5/weather"
     params = {"q": location, "appid": OPENWEATHER_API_KEY, "units": "metric"}
     try:
@@ -33,9 +32,7 @@ def get_coordinates(location):
         raise ValueError(f"Error fetching coordinates: {str(e)}")
 
 def get_daily_forecast(lat, lon):
-    """
-    Fetch the 5-day forecast from OpenWeather API and filter for 18:00:00 (6 PM) forecasts.
-    """
+   
     url = "https://api.openweathermap.org/data/2.5/forecast"
     params = {"lat": lat, "lon": lon, "units": "metric", "appid": OPENWEATHER_API_KEY}
     try:
@@ -50,10 +47,7 @@ def get_daily_forecast(lat, lon):
         raise ValueError(f"Error fetching forecast: {str(e)}")
 
 def get_hourly_forecast(lat, lon):
-    """
-    Fetch the full 5-day forecast from OpenWeather API.
-    This returns all available forecast entries (typically around 40 entries at 3-hour intervals).
-    """
+    
     url = "https://api.openweathermap.org/data/2.5/forecast"
     params = {"lat": lat, "lon": lon, "units": "metric", "appid": OPENWEATHER_API_KEY}
     try:
@@ -69,10 +63,7 @@ def month_to_season(month):
     return {12: 0, 1: 0, 2: 0, 3: 1, 4: 1, 5: 1, 6: 2, 7: 2, 8: 2, 9: 3, 10: 3, 11: 3}[month]
 
 def prepare_forecast_features(forecasts):
-    """
-    Prepare a DataFrame with features from forecast data.
-    This function works for both daily and hourly forecasts.
-    """
+  
     rows = []
     for forecast in forecasts:
         dt = datetime.fromtimestamp(forecast["dt"])
